@@ -5,6 +5,8 @@
 package com.doppelganger.role.system.pdassistant.model;
 
 import com.doppelganger.role.system.pdassistant.util.services.AnimaExcelReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -28,7 +30,7 @@ public class SecondaryAbilities {
         initializeSecondaryAbilitiesAssociatedCellIndexes();
     }
 
-    public SecondaryAbilities() {
+    public SecondaryAbilities() throws FileNotFoundException, IOException {
 
         this.animaExcelReader = new AnimaExcelReader("C:\\Users\\SaulRC1\\Desktop\\Roll\\Anima\\Partida 6\\Sigma.xlsm");
 
@@ -43,7 +45,7 @@ public class SecondaryAbilities {
         this.secondaryAbilities = secondaryAbilities;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         SecondaryAbilities secondaryAbilities = new SecondaryAbilities();
 
         HashMap<String, Integer> abilities = secondaryAbilities.getSecondaryAbilities();
