@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -171,6 +173,8 @@ public class PDAssistantMainWindowController {
                             "Ha ocurrido un error", "ERROR", JOptionPane.ERROR_MESSAGE);
                     Logger.getLogger(PDAssistantMainWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 
+                } catch (InvalidFormatException ex) {
+                    Logger.getLogger(PDAssistantMainWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
                     
                     Logger.getLogger(PDAssistantMainWindowController.class.getName()).log(Level.INFO, "Thread Execution Finished");

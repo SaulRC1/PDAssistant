@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,21 +25,49 @@ public class AnimaExcelReader {
     private String pathToFile;
 
     private XSSFWorkbook excelFile;
+    
+    private String animaExcelVersion;
 
-    public AnimaExcelReader(String pathToFile) throws FileNotFoundException, IOException {
+    public static final int ANIMA_VERSION_CELL_INDEX = 36;
+    
+    public static final String ANIMA_VERSION_8_4_1 = "8.4.1";
+    
+    public static final String ANIMA_VERSION_8_4_3 = "8.4.3";
+    
+    public static final int ANIMA_VERSION_ROW_INDEX = 104;
+
+    public static final int ANIMA_VERSION_SHEET = 1;
+
+    public AnimaExcelReader(String pathToFile) throws FileNotFoundException, IOException, InvalidFormatException {
 
         this.pathToFile = pathToFile;
 
         retrieveExcelFile();
+        
+        this.animaExcelVersion = this.retrieveAnimaExcelVersion();
 
     }
 
-    private void retrieveExcelFile() throws FileNotFoundException, IOException {
+    public String getAnimaExcelVersion() {
+        return animaExcelVersion;
+    }
+
+    private void retrieveExcelFile() throws FileNotFoundException, IOException, InvalidFormatException {
         File file = new File(pathToFile);
 
-        FileInputStream fileInputStream = new FileInputStream(file);
+        //FileInputStream fileInputStream = new FileInputStream(file);
+        this.excelFile = new XSSFWorkbook(file);
+    }
 
-        this.excelFile = new XSSFWorkbook(fileInputStream);
+    private String retrieveAnimaExcelVersion() {
+        //Get the Excel Sheet where secondary abilities are located
+        XSSFSheet sheet = excelFile.getSheetAt(ANIMA_VERSION_SHEET);
+
+        String versionString = sheet.getRow(ANIMA_VERSION_ROW_INDEX).getCell(ANIMA_VERSION_CELL_INDEX).toString();
+        
+        String versionNumber = versionString.split(" ")[3];
+        
+        return versionNumber; 
     }
 
     /**
@@ -50,6 +79,18 @@ public class AnimaExcelReader {
 
         //Create the HashMap that will be returned
         HashMap<String, Integer> secondaryAbilities = new HashMap<>();
+        
+        HashMap<Integer, String> secondaryAbilitiesAssociatedCellIndexes = null;
+        
+        if(animaExcelVersion.equals(ANIMA_VERSION_8_4_3)) {
+            
+            secondaryAbilitiesAssociatedCellIndexes = SecondaryAbilities.secondaryAbilitiesAssociatedCellIndexesVersion8_4_3;
+            
+        } else if (animaExcelVersion.equals(ANIMA_VERSION_8_4_1)) {
+            
+            secondaryAbilitiesAssociatedCellIndexes = SecondaryAbilities.secondaryAbilitiesAssociatedCellIndexesVersion8_4_1;
+            
+        }
 
         //Current cell index
         int cellIndex = 0;
@@ -75,6 +116,8 @@ public class AnimaExcelReader {
                 //Get next cell
                 Cell cell = cellIterator.next();
 
+                System.out.println("Celda [" + cellIndex + "]: " + cell.toString());
+
                 //Secondary Abilities are computed by a formula hence its type
                 if (cell.getCellType() == CellType.FORMULA) {
 
@@ -84,10 +127,10 @@ public class AnimaExcelReader {
                     //If the computed formula type is numeric, and the index is
                     //corresponds to a secondary ability, then store it
                     if (type == CellType.NUMERIC
-                            && SecondaryAbilities.secondaryAbilitiesAssociatedCellIndexes.containsKey(cellIndex)) {
+                            && secondaryAbilitiesAssociatedCellIndexes.containsKey(cellIndex)) {
 
                         //Obtain secondary ability name
-                        String secondaryAbilityName = SecondaryAbilities.secondaryAbilitiesAssociatedCellIndexes.get(cellIndex);
+                        String secondaryAbilityName = secondaryAbilitiesAssociatedCellIndexes.get(cellIndex);
 
                         //Put the secondary ability and its associated value in 
                         //the returned Hash Map
@@ -103,5 +146,4 @@ public class AnimaExcelReader {
 
         return secondaryAbilities;
     }
-
 }
