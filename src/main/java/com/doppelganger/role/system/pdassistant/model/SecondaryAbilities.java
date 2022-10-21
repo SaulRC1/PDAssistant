@@ -4,7 +4,9 @@ import com.doppelganger.role.system.pdassistant.util.services.AnimaExcelReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
@@ -14,10 +16,14 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 public class SecondaryAbilities {
 
     public static final int SECONDARY_ABILITIES_SHEET_INDEX = 3;
+    
+    public static final int SECONDARY_ABILITIES_CELL_OFFSET = 4;
 
     private HashMap<String, Integer> secondaryAbilities;
 
     private final AnimaExcelReader animaExcelReader;
+    
+    public static final Set<String> secondaryAbilitiesNames = new HashSet<>();
 
     public static final HashMap<Integer, String> secondaryAbilitiesAssociatedCellIndexesVersion8_4_3
             = new HashMap<>();
@@ -28,13 +34,14 @@ public class SecondaryAbilities {
     static {
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3();
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1();
+        initializeSecondaryAbilitiesNames();
     }
 
     public SecondaryAbilities(String pathToFile) throws FileNotFoundException, IOException, InvalidFormatException {
 
         this.animaExcelReader = new AnimaExcelReader(pathToFile);
 
-        this.secondaryAbilities = this.animaExcelReader.readSecondaryAbilitiesFromExcel();
+        this.secondaryAbilities = this.animaExcelReader.readSecondaryAbilitiesFromExcelGeneralAlgorithm();
     }
 
     public HashMap<String, Integer> getSecondaryAbilities() {
@@ -50,7 +57,7 @@ public class SecondaryAbilities {
     }
 
     public static void main(String[] args) throws IOException, FileNotFoundException, InvalidFormatException {
-        SecondaryAbilities secondaryAbilities = new SecondaryAbilities("C:\\Users\\SaulWorkStation\\Downloads\\Andrea.xlsm");
+        /*SecondaryAbilities secondaryAbilities = new SecondaryAbilities("C:\\Users\\SaulWorkStation\\Downloads\\Andrea.xlsm");
         
         System.out.println("SecondaryAbilites");
 
@@ -62,6 +69,17 @@ public class SecondaryAbilities {
 
         for (Map.Entry pair : abilities.entrySet()) {
             System.out.println(pair.getKey() + " = " + pair.getValue());
+        }*/
+        
+        for (String secondaryAbilitiesName : secondaryAbilitiesNames) {
+            System.out.println("Habilidad Secundaria: " + secondaryAbilitiesName);
+        }
+    }
+    
+    
+    private static void initializeSecondaryAbilitiesNames() {
+        for (Map.Entry pair : secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.entrySet()) {
+            secondaryAbilitiesNames.add((String) pair.getValue());
         }
     }
 

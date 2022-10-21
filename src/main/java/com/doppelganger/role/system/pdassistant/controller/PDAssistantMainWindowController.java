@@ -9,6 +9,7 @@ import com.doppelganger.role.system.pdassistant.model.spinner.TiradaSpinnerModel
 import com.doppelganger.role.system.pdassistant.model.table.ImportantSecondaryAbilitiesTableModel;
 import com.doppelganger.role.system.pdassistant.model.table.SecondaryAbilitiesTableModel;
 import com.doppelganger.role.system.pdassistant.ui.PDAssistantMainWindow;
+import com.doppelganger.role.system.pdassistant.util.services.UserPropertiesReader;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -38,6 +39,8 @@ public class PDAssistantMainWindowController {
     private SecondaryAbilitiesTableModel secondaryAbilitiesTableModel;
     
     private ImportantSecondaryAbilitiesTableModel importantSecondaryAbilitiesTableModel;
+    
+    private UserPropertiesReader userPropertiesReader = new UserPropertiesReader();
 
     public PDAssistantMainWindowController() {
 
@@ -57,9 +60,27 @@ public class PDAssistantMainWindowController {
         initializeButtons();
         
         initializeSearchListener();
+        
+        initializeAnimaExcelData();
 
         pdAssistantMainWindow.setVisible(true);
 
+    }
+    
+    private void initializeAnimaExcelData() {
+        
+        String lastAnimaExcelFile = userPropertiesReader.readLastAnimaExcelFileUserProperty();
+        
+        System.out.println("CurrentPath: " + userPropertiesReader.getCurrentRelativePath());
+        
+        if(lastAnimaExcelFile != null) {
+            Runnable readTask = readExcelFileTask(lastAnimaExcelFile);
+
+            Thread readTaskThread = new Thread(readTask);
+            
+            readTaskThread.start();
+        }
+        
     }
     
     private void initializeSearchListener() {
@@ -200,6 +221,10 @@ public class PDAssistantMainWindowController {
         int selectedOption = fileChooser.showOpenDialog(pdAssistantMainWindow);
 
         if (selectedOption == JFileChooser.APPROVE_OPTION) {
+            
+            userPropertiesReader.setLastOpenedAnimaExcelFile(fileChooser.getSelectedFile().getAbsolutePath());
+            
+            userPropertiesReader.writeUserProperties();
 
             Runnable readTask = readExcelFileTask(fileChooser.getSelectedFile().getAbsolutePath());
 
