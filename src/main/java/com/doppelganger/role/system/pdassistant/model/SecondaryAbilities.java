@@ -30,9 +30,9 @@ public class SecondaryAbilities {
         initializeSecondaryAbilitiesAssociatedCellIndexes();
     }
 
-    public SecondaryAbilities() throws FileNotFoundException, IOException {
+    public SecondaryAbilities(String pathToFile) throws FileNotFoundException, IOException {
 
-        this.animaExcelReader = new AnimaExcelReader("C:\\Users\\SaulRC1\\Desktop\\Roll\\Anima\\Partida 6\\Sigma.xlsm");
+        this.animaExcelReader = new AnimaExcelReader(pathToFile);
 
         this.secondaryAbilities = this.animaExcelReader.readSecondaryAbilitiesFromExcel();
     }
@@ -46,13 +46,13 @@ public class SecondaryAbilities {
     }
 
     public static void main(String[] args) throws IOException {
-        SecondaryAbilities secondaryAbilities = new SecondaryAbilities();
+        /*SecondaryAbilities secondaryAbilities = new SecondaryAbilities();
 
         HashMap<String, Integer> abilities = secondaryAbilities.getSecondaryAbilities();
 
         for (Map.Entry pair : abilities.entrySet()) {
             System.out.println(pair.getKey() + " = " + pair.getValue());
-        }
+        }*/
 
     }
 

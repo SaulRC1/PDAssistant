@@ -16,60 +16,83 @@ import java.util.Map;
 public class SecondaryAbilitiesTableModel extends DefaultTableModel {
 
     private HashMap<String, Integer> secondaryAbilities;
-    
+
     public SecondaryAbilitiesTableModel(HashMap<String, Integer> secondaryAbilities) {
         this.addColumn("Habilidad");
         this.addColumn("Valor");
         this.addColumn("Resultado De La Tirada");
-        
+
         this.secondaryAbilities = secondaryAbilities;
     }
-    
+
     public void refreshData(boolean calculateValues, Integer result) {
-        
+
         //Discards all current rows
         this.setRowCount(0);
-        
+
         for (Map.Entry pair : secondaryAbilities.entrySet()) {
-            
+
             String[] row;
-            
-            if(calculateValues && result != null) {
+
+            if (calculateValues && result != null) {
                 Integer computedValue = (Integer) pair.getValue() + result;
-                
+
                 row = initializeRow((String) pair.getKey(), (Integer) pair.getValue(),
-                                         computedValue);
+                        computedValue);
             } else {
-                row = initializeRow((String) pair.getKey(), (Integer) pair.getValue(),null);
+                row = initializeRow((String) pair.getKey(), (Integer) pair.getValue(), null);
             }
-            
+
             this.addRow(row);
         }
-        
-        
+
     }
-    
-    private String[] initializeRow(String ability, Integer abilityValue, Integer computedValue) {
-        
-        String[] row = new String[3];
-        
-        row[0] = ability;
-        
-        row[1] = abilityValue.toString();
-        
-        if(computedValue == null) {
-            
-            row[2] = "";
-            
-        } else {
-            
-            row[2] = computedValue.toString();
-            
+
+    public void refreshDatUsingFilter(String filterCharacters, Integer result) {
+        //Discards all current rows
+        this.setRowCount(0);
+
+        for (Map.Entry pair : secondaryAbilities.entrySet()) {
+
+            String[] row;
+
+            String key = (String) (pair.getKey());
+
+            if (key.toLowerCase().contains(filterCharacters)) {
+                if (result != null) {
+                    Integer computedValue = (Integer) pair.getValue() + result;
+
+                    row = initializeRow((String) pair.getKey(), (Integer) pair.getValue(),
+                            computedValue);
+                } else {
+                    row = initializeRow((String) pair.getKey(), (Integer) pair.getValue(), null);
+                }
+
+                this.addRow(row);
+            }
         }
-        
-        
-        return row;
-        
     }
-    
+
+    private String[] initializeRow(String ability, Integer abilityValue, Integer computedValue) {
+
+        String[] row = new String[3];
+
+        row[0] = ability;
+
+        row[1] = abilityValue.toString();
+
+        if (computedValue == null) {
+
+            row[2] = "";
+
+        } else {
+
+            row[2] = computedValue.toString();
+
+        }
+
+        return row;
+
+    }
+
 }
