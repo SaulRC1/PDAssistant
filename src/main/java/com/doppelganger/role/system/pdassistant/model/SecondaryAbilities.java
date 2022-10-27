@@ -119,7 +119,7 @@ public class SecondaryAbilities {
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2199, "Tasación");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2246, "V.Mágica");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2293, "Frialdad");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2340, "P.Fuerza");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2340, "P. Fuerza");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2387, "Res.Dolor");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2434, "Cerrajería");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2473, "Disfraz");
@@ -135,8 +135,8 @@ public class SecondaryAbilities {
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2943, "Alquimia");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(2982, "Animismo");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3028, "Música");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3074, "T.Manos");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3120, "Caligrafía Ritual");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3074, "T. Manos");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3120, "Caligrafía ritual");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3166, "Orfebrería");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3212, "Confección");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_1.put(3259, "Conf.Marionetas");
@@ -177,10 +177,10 @@ public class SecondaryAbilities {
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2201, "Navegación");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2250, "Ocultismo");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2299, "Tasación");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2348, "V.Mágica");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2348, "V. Mágica");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2397, "Frialdad");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2446, "P.Fuerza");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2495, "Res.Dolor");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2446, "P. Fuerza");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2495, "Res. Dolor");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2544, "Cerrajería");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2585, "Disfraz");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(2634, "Ocultarse");
@@ -195,11 +195,11 @@ public class SecondaryAbilities {
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3075, "Alquimia");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3116, "Animismo");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3164, "Música");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3212, "T.Manos");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3260, "Caligrafía Ritual");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3212, "T. Manos");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3260, "Caligrafía ritual");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3308, "Orfebrería");
         secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3356, "Confección");
-        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3405, "Conf.Marionetas");
+        secondaryAbilitiesAssociatedCellIndexesVersion8_4_3.put(3405, "Conf. marionetas");
     }
 
 }
